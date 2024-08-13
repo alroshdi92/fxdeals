@@ -1,0 +1,23 @@
+package com.bloomberg.fxdeals.service;
+
+import com.bloomberg.fxdeals.model.FxDeal;
+import com.bloomberg.fxdeals.repository.FxDealRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class FxDealService {
+
+    @Autowired
+    private FxDealRepository fxDealRepository;
+
+    public FxDeal saveDeal(FxDeal fxDeal) {
+        Optional<FxDeal> existingDeal = fxDealRepository.findById(fxDeal.getDealUniqueId());
+        if (existingDeal.isPresent()) {
+            throw new RuntimeException("Deal with ID " + fxDeal.getDealUniqueId() + " already exists");
+        }
+        return fxDealRepository.save(fxDeal);
+    }
+}

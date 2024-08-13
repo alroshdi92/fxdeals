@@ -1,0 +1,7 @@
+package com.bloomberg.fxdeals.repository;
+
+import com.bloomberg.fxdeals.model.FxDeal;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FxDealRepository extends JpaRepository<FxDeal, String> {
+}

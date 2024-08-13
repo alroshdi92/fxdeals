@@ -1,0 +1,23 @@
+package com.bloomberg.fxdeals.controller;
+
+import com.bloomberg.fxdeals.model.FxDeal;
+import com.bloomberg.fxdeals.service.FxDealService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/deals")
+public class FxDealController {
+
+    @Autowired
+    private FxDealService fxDealService;
+
+    @PostMapping
+    public ResponseEntity<FxDeal> createDeal(@Validated @RequestBody FxDeal fxDeal) {
+        FxDeal savedDeal = fxDealService.saveDeal(fxDeal);
+        return new ResponseEntity<>(savedDeal, HttpStatus.CREATED);
+    }
+}
